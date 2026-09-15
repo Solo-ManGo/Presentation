@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hands-on Lab Manager - Presentation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { 500: '#14b8a6', 600: '#0d9488', 900: '#134e4a' },
+                        dark: { 800: '#1e293b', 900: '#0f172a', 950: '#020617' }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Base slide styles */
+        body { margin: 0; padding: 0; overflow: hidden; background-color: #0f172a; color: #f8fafc; font-family: ui-sans-serif, system-ui, sans-serif; }
+        .slide { display: none; height: 100vh; width: 100vw; flex-direction: column; justify-content: center; align-items: center; padding: 4rem; box-sizing: border-box; }
+        
+        /* Transition effects */
+        .slide-inner { width: 100%; max-width: 1200px; max-height: 800px; height: 100%; display: flex; flex-direction: column; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Print styles to export perfectly as a landscape PDF */
+        @media print {
+            @page { size: 16in 9in; margin: 0; }
+            body { overflow: visible !important; background-color: #0f172a !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .no-print { display: none !important; }
+            .slide { 
+                display: flex !important; 
+                page-break-inside: avoid; 
+                page-break-after: always; 
+                height: 9in; 
+                width: 16in;
+                position: relative;
+            }
+            .slide-inner { animation: none; max-width: 100%; max-height: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation UI (Hidden on Print) -->
+    <div class="no-print fixed bottom-6 right-6 z-50 flex items-center space-x-4 bg-dark-800/80 backdrop-blur-md px-4 py-2 rounded-full border border-slate-700 shadow-xl">
+        <button onclick="window.prevSlide()" class="p-2 text-slate-300 hover:text-brand-500 transition-colors"><i class="fa-solid fa-chevron-left"></i></button>
+        <span id="slide-counter" class="text-sm font-mono text-slate-400 font-bold">1 / 6</span>
+        <button onclick="window.nextSlide()" class="p-2 text-slate-300 hover:text-brand-500 transition-colors"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+
+    <div class="no-print fixed top-6 right-6 z-50">
+        <button onclick="window.print()" class="px-5 py-2.5 bg-brand-600 hover:bg-brand-500 text-white rounded-lg font-semibold shadow-lg transition-colors flex items-center">
+            <i class="fa-solid fa-file-pdf mr-2"></i> Save as PDF
+        </button>
+    </div>
+
+    <!-- SLIDE 1: Title Slide with Custom Background Image -->
+    <div class="slide bg-cover bg-center bg-no-repeat relative" id="slide-0" style="background-image: url('image_2beb809.jpg');">
+        <!-- Overlay to ensure text readability -->
+        <div class="absolute inset-0 bg-dark-900/30 backdrop-blur-[2px] z-0"></div>
+        <div class="slide-inner justify-center items-center text-center relative z-10">
+            <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(20,184,166,0.15),transparent_60%)] -z-10"></div>
+            <div class="w-20 h-20 rounded-2xl bg-gradient-to-tr from-brand-600 to-cyan-500 flex items-center justify-center font-bold text-white text-3xl shadow-2xl shadow-brand-500/20 mb-8 mx-auto">
+                <i class="fa-solid fa-server"></i>
+            </div>
+            <h1 class="text-6xl font-extrabold text-white tracking-tight mb-4 drop-shadow-2xl">Hands-On Lab Manager</h1>
+            <h2 class="text-2xl text-brand-400 font-mono tracking-widest uppercase mb-8 drop-shadow-lg">Enterprise Infrastructure Portfolio</h2>
+            <p class="text-xl text-slate-100 max-w-2xl mx-auto drop-shadow-lg font-medium">
+                Showcasing large-scale datacenter relocations, precision hardware rework, and complex engineering lab deployments.
+            </p>
+            <div class="mt-16 text-slate-200 text-sm flex items-center no-print animate-pulse bg-dark-950/70 px-4 py-2 rounded-full border border-slate-700/50 backdrop-blur-md">
+                Use <kbd class="px-2 py-1 bg-slate-800 rounded text-slate-200 mx-2 font-mono border border-slate-600">Space</kbd> or arrow keys to navigate
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 2: Broadcom Move -->
+    <div class="slide" id="slide-1">
+        <div class="slide-inner">
+            <div class="flex justify-between items-end border-b border-slate-700 pb-4 mb-8">
+                <div>
+                    <h2 class="text-brand-500 font-mono uppercase tracking-wider text-sm mb-1">2020 Case Study</h2>
+                    <h1 class="text-4xl font-bold text-white">Broadcom Datacenter Relocation</h1>
+                </div>
+                <div class="text-right hidden md:block">
+                    <span class="px-3 py-1 bg-brand-500/10 text-brand-400 rounded-full text-xs font-bold border border-brand-500/30">100% Uptime Success</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12 h-full items-center">
+                <div class="space-y-6">
+                    <p class="text-xl text-slate-300 leading-relaxed">
+                        Executed a full-scale relocation of Broadcom datacenter racks, high-density server equipment, and core networking units with minimal service interruption.
+                    </p>
+                    <ul class="space-y-4 mt-6">
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Power & Thermal Layout</strong>Organized complex rack mapping and PDU distribution.</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Dense Cable Management</strong>Meticulous routing of high-density network and heavy power cables.</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Zero Hardware Failure</strong>Pre/post-migration validation ensuring safe physical transport.</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Carousel Container for 2020 Images -->
+                <div class="h-full flex flex-col justify-center pb-8">
+                    <div class="relative rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl h-[480px] w-full group">
+                        <img id="slideshow-img" src="IMG-20200725-WA0000.jpg" class="object-cover w-full h-full transition-opacity duration-300" alt="Broadcom Relocation">
+                        
+                        <!-- Caption Overlay -->
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 z-10 pointer-events-none">
+                            <p id="slideshow-caption" class="text-xl font-bold text-white drop-shadow-md">Power Distribution Wiring</p>
+                            <p id="slideshow-counter" class="text-xs text-brand-400 font-mono mt-1">Image 1 of 9</p>
+                        </div>
+                        
+                        <!-- Manual Controls -->
+                        <button onclick="window.prevSlideShowImage()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-brand-500 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all z-20 shadow-lg"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button onclick="window.nextSlideShowImage()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-brand-500 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all z-20 shadow-lg"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 3: Intel to MaxLinear -->
+    <div class="slide" id="slide-2">
+        <div class="slide-inner">
+            <div class="flex justify-between items-end border-b border-slate-700 pb-4 mb-8">
+                <div>
+                    <h2 class="text-brand-500 font-mono uppercase tracking-wider text-sm mb-1">2021 Project Update</h2>
+                    <h1 class="text-4xl font-bold text-white">Review Day: New Lab Progressing</h1>
+                </div>
+                <div class="text-right hidden md:block">
+                    <span class="px-3 py-1 bg-brand-500/10 text-brand-400 rounded-full text-xs font-bold border border-brand-500/30">Infrastructure & Setups</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12 h-full items-center">
+                
+                <!-- Carousel Container for 2021 Images -->
+                <div class="h-full flex flex-col justify-center pb-8">
+                    <div class="relative rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl h-[480px] w-full group">
+                        <!-- Adding an onerror fallback in case the sequential filenames don't exist in the zip -->
+                        <img id="slideshow-img-3" src="IMG-20210311-WA0003.jpg" onerror="this.src='IMG-20210311-WA0003.jpg'" class="object-cover w-full h-full transition-opacity duration-300" alt="2021 Lab Progress">
+                        
+                        <!-- Caption Overlay -->
+                        <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6 z-10 pointer-events-none">
+                            <p id="slideshow-caption-3" class="text-xl font-bold text-white drop-shadow-md">Overhead Wiring Installation</p>
+                            <p id="slideshow-counter-3" class="text-xs text-brand-400 font-mono mt-1">Image 1 of 3</p>
+                        </div>
+                        
+                        <!-- Manual Controls -->
+                        <button onclick="window.prevSlideShowImage3()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-brand-500 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all z-20 shadow-lg"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button onclick="window.nextSlideShowImage3()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 hover:bg-brand-500 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all z-20 shadow-lg"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+
+                <div class="space-y-6">
+                    <p class="text-xl text-slate-300 leading-relaxed">
+                        Conducted a comprehensive review day to evaluate the progress of the new lab construction. Closely monitored critical infrastructure setups to ensure adherence to project timelines.
+                    </p>
+                    <ul class="space-y-4 mt-6">
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Infrastructure Inspection</strong>Reviewing overhead cable trays, spools, and large-scale wiring distributions.</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Bench & Table Setups</strong>Progress check on moving tables labs, test stations, and prototype staging areas.</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Quality Assurance</strong>Ensuring structural integrity and safety standards are strictly met during the active buildout phase.</div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ... existing code ... -->
+    <!-- SLIDE 4: Servers Ready (Updated with 2022 Slideshow) -->
+    <div class="slide" id="slide-3">
+        <div class="slide-inner">
+            <div class="flex justify-between items-end border-b border-slate-700 pb-4 mb-8">
+                <div>
+                    <h2 class="text-brand-500 font-mono uppercase tracking-wider text-sm mb-1">Infrastructure Deployment</h2>
+                    <h1 class="text-4xl font-bold text-white">Servers Configured & Ready</h1>
+                </div>
+                <div class="text-right hidden md:block">
+                    <span class="px-3 py-1 bg-brand-500/10 text-brand-400 rounded-full text-xs font-bold border border-brand-500/30">2022 Deployment</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12 h-full">
+                <!-- Text Content -->
+                <div class="space-y-6 flex flex-col justify-center pb-12">
+                    <p class="text-xl text-slate-300 leading-relaxed">
+                        Successfully completed the full population and configuration of the enterprise server racks, transitioning the lab from bare-metal setup to fully operational status.
+                    </p>
+                    <ul class="space-y-4 mt-6">
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-server text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">High-Density Population</strong>Fully loaded compute and storage nodes securely mounted and labeled.</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-network-wired text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Final Network Integration</strong>Verified all fiber uplinks, management interfaces, and power redundancy (A/B feeds).</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-cloud text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">vSphere Administration</strong>Managing virtualized environments, guest OS deployments, and datastore allocations.</div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- 2022 Slideshow Container -->
+                <div class="h-full flex flex-col justify-center pb-12">
+                    <div class="relative rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl h-[480px] w-full group">
+                        <!-- Image 1: Close up servers -->
+                        <div class="absolute inset-0 transition-opacity duration-1000 slide4-image opacity-100 z-10">
+                            <img src="20220916_114844.jpg" class="object-cover w-full h-full object-center" alt="Configured Server Nodes">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                                <p class="text-lg font-bold text-white">Configured Compute Nodes</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Image 2: Wide aisle view -->
+                        <div class="absolute inset-0 transition-opacity duration-1000 slide4-image opacity-0 z-0">
+                            <img src="IMG-20221106-WA0036.jpg" class="object-cover w-full h-full object-center" alt="Fully Populated Aisle">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                                <p class="text-lg font-bold text-white">Operational Hot/Cold Aisle</p>
+                            </div>
+                        </div>
+
+                        <!-- Image 3: vSphere -->
+                        <div class="absolute inset-0 transition-opacity duration-1000 slide4-image opacity-0 z-0 bg-white">
+                            <img src="datastore831.jpg" class="object-contain w-full h-full object-center" alt="vSphere Administration">
+                            <div class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/90 via-black/50 to-transparent p-6">
+                                <p class="text-lg font-bold text-white">vSphere Datastore Management</p>
+                            </div>
+                        </div>
+
+                        <!-- Slideshow Navigation Arrows -->
+                        <button onclick="nextSlide4Image(-1)" class="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-brand-500 text-white w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all border border-white/20 z-20">
+                            <i class="fa-solid fa-chevron-left"></i>
+                        </button>
+                        <button onclick="nextSlide4Image(1)" class="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-brand-500 text-white w-10 h-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all border border-white/20 z-20">
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- SLIDE 5: RF Chambers Video (New) -->
+    <div class="slide" id="slide-4-video">
+        <div class="slide-inner">
+            <div class="flex justify-between items-end border-b border-slate-700 pb-4 mb-8">
+                <div>
+                    <h2 class="text-brand-500 font-mono uppercase tracking-wider text-sm mb-1">MaxLinear Operations</h2>
+                    <h1 class="text-4xl font-bold text-white">Wi-Fi RF Chambers Lab</h1>
+                </div>
+                <div class="text-right hidden md:block">
+                    <span class="px-3 py-1 bg-brand-500/10 text-brand-400 rounded-full text-xs font-bold border border-brand-500/30">RF Shielding & Testing</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-12 h-full items-center">
+                <div class="space-y-6">
+                    <p class="text-xl text-slate-300 leading-relaxed">
+                        Managed the setup and operations of highly specialized RF isolation chambers for advanced Wi-Fi testing and validation at MaxLinear.
+                    </p>
+                    <ul class="space-y-4 mt-6">
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">RF Isolation Environments</strong>Ensuring absolute signal integrity and zero interference within testing enclosures.</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Automated Test Rigs</strong>Integration of structural mounts, dense cabling, and calibrated test equipment.</div>
+                        </li>
+                        <li class="flex items-start text-lg text-slate-400">
+                            <i class="fa-solid fa-check-circle text-brand-500 mr-4 mt-1"></i>
+                            <div><strong class="text-white block">Scalable Lab Architecture</strong>Managing power distribution, cooling, and safe accessibility for multi-chamber physical setups.</div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Video Container -->
+                <div class="h-full flex flex-col justify-center pb-8">
+                    <div class="relative rounded-xl overflow-hidden border-2 border-slate-700 shadow-2xl h-[480px] w-full bg-black/50">
+                        <video src="MXL Chambes WiFi Lab.mp4" controls autoplay muted loop class="object-contain w-full h-full" alt="Wi-Fi Chambers Lab Video"></video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 6: Core Competencies -->
+    <div class="slide" id="slide-5">
+        <div class="slide-inner justify-center">
+            <div class="text-center mb-16">
+                <h2 class="text-brand-500 font-mono uppercase tracking-wider text-sm mb-2">Technical Overview</h2>
+                <h1 class="text-5xl font-bold text-white">Core Competencies Matrix</h1>
+            </div>
+
+            <div class="grid grid-cols-2 gap-8 max-w-4xl mx-auto w-full">
+                <div class="bg-dark-900 border border-slate-700 rounded-2xl p-8 flex items-start space-x-6 shadow-xl">
+                    <div class="w-16 h-16 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-3xl shrink-0">
+                        <i class="fa-solid fa-boxes-packing"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Lab Logistics</h3>
+                        <p class="text-slate-400 text-lg">Server rack relocation, power budgeting, layout, and zero-downtime transfers.</p>
+                    </div>
+                </div>
+
+                <div class="bg-dark-900 border border-slate-700 rounded-2xl p-8 flex items-start space-x-6 shadow-xl">
+                    <div class="w-16 h-16 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-3xl shrink-0">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-2">SMD Rework</h3>
+                        <p class="text-slate-400 text-lg">Micro-soldering (0201/0402, QFN), PCB modification, and prototype bring-up.</p>
+                    </div>
+                </div>
+
+                <div class="bg-dark-900 border border-slate-700 rounded-2xl p-8 flex items-start space-x-6 shadow-xl">
+                    <div class="w-16 h-16 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-3xl shrink-0">
+                        <i class="fa-solid fa-tower-broadcast"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-2">RF Chambers</h3>
+                        <p class="text-slate-400 text-lg">Wi-Fi 6/6E/7 setups, turntable control, shielding integrity, and automated testing.</p>
+                    </div>
+                </div>
+
+                <div class="bg-dark-900 border border-slate-700 rounded-2xl p-8 flex items-start space-x-6 shadow-xl">
+                    <div class="w-16 h-16 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center text-3xl shrink-0">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-white mb-2">ESD & Safety</h3>
+                        <p class="text-slate-400 text-lg">Compliance enforcement, lab calibration scheduling, and chemical ventilation safety.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- SLIDE 7: Contact -->
+    <div class="slide aspect-auto bg-contain bg-center bg-no-repeat relative w-full" id="slide-6" style="background-image: url('RPD repair .png');">
+        <!-- Overlay to ensure text readability -->
+        <div class="absolute inset-0 bg-dark-900/30 backdrop-blur-[2px] z-0"></div>
+        <div class="slide-inner justify-end pb-24 items-center text-center relative z-10 pt-[40vh]">
+            <h1 class="text-5xl font-extrabold text-white mb-6 drop-shadow-2xl">Ready to Elevate Your Lab Operations?</h1>
+            <p class="text-2xl text-slate-100 max-w-3xl mx-auto mb-12 leading-relaxed drop-shadow-lg font-medium">
+                Specialized in managing high-complexity engineering labs, RF environments, precision hardware rework, and seamless multi-million dollar equipment migrations.
+            </p>
+            <div class="flex space-x-6 text-xl font-mono text-brand-400 bg-dark-950/80 backdrop-blur-md p-6 rounded-xl border border-slate-700 shadow-xl">
+                <span><i class="fa-solid fa-envelope mr-3"></i> savamazgo@gmail.com</span>
+                <span class="text-slate-500">|</span>
+                <span><i class="fa-solid fa-phone mr-3"></i> +972-544-878036</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let currentSlide = 0;
+            const slides = document.querySelectorAll('.slide');
+            const counter = document.getElementById('slide-counter');
+
+            const updateView = () => {
+                slides.forEach((slide, index) => {
+                    if(index === currentSlide) {
+                        slide.style.display = 'flex';
+                    } else {
+                        slide.style.display = 'none';
+                    }
+                });
+                if(counter) counter.innerText = `${currentSlide + 1} / ${slides.length}`;
+            };
+
+            window.nextSlide = () => {
+                if (currentSlide < slides.length - 1) {
+                    currentSlide++;
+                    updateView();
+                }
+            };
+
+            window.prevSlide = () => {
+                if (currentSlide > 0) {
+                    currentSlide--;
+                    updateView();
+                }
+            };
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight' || e.key === 'Space') {
+                    e.preventDefault();
+                    window.nextSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    window.prevSlide();
+                }
+            });
+
+            // Init first slide
+            updateView();
+
+            // --- Broadcom 2020 Slideshow Logic ---
+            const slideshowImages = [
+                { src: 'IMG-20200725-WA0000.jpg', caption: 'Power Distribution Wiring' },
+                { src: 'IMG-20200725-WA0001.jpg', caption: 'Network Cabling' },
+                { src: 'IMG-20200731-WA0008.jpg', caption: 'Dense Cable Mapping' },
+                { src: 'IMG-20200731-WA0006.jpg', caption: 'Server Rack Population' },
+                { src: 'IMG-20200731-WA0007.jpg', caption: 'Switch & Router Deployment' },
+                { src: 'IMG-20200731-WA0004.jpg', caption: 'Hands-on Hardware Mounting' },
+                { src: 'IMG-20200731-WA0005.jpg', caption: 'Rack Staging' },
+                { src: 'IMG-20200731-WA0002.jpg', caption: 'Large-Scale Asset Transport' },
+                { src: 'IMG-20200729-WA0005.jpg', caption: 'Heavy Equipment Logistics' }
+            ];
+            
+            let currentImageIdx = 0;
+            const imgEl = document.getElementById('slideshow-img');
+            const capEl = document.getElementById('slideshow-caption');
+            const countEl = document.getElementById('slideshow-counter');
+            
+            const updateSlideshow = () => {
+                if(!imgEl) return;
+                imgEl.style.opacity = 0; // Trigger fade out
+                setTimeout(() => {
+                    imgEl.src = slideshowImages[currentImageIdx].src;
+                    capEl.innerText = slideshowImages[currentImageIdx].caption;
+                    countEl.innerText = `Image ${currentImageIdx + 1} of ${slideshowImages.length}`;
+                    imgEl.style.opacity = 1; // Trigger fade in
+                }, 300);
+            };
+
+            window.nextSlideShowImage = () => {
+                currentImageIdx = (currentImageIdx + 1) % slideshowImages.length;
+                updateSlideshow();
+            };
+
+            window.prevSlideShowImage = () => {
+                currentImageIdx = (currentImageIdx - 1 + slideshowImages.length) % slideshowImages.length;
+                updateSlideshow();
+            };
+            
+            // --- Slide 3 (2021) Slideshow Logic ---
+            const slideshowImages3 = [
+                { src: 'IMG-20210311-WA0003.jpg', caption: 'Initial Wiring Infrastructure Setup' },
+                { src: 'IMG-20210311-WA0006.jpg', caption: 'Equipment Bench & Tray Alignment' }, 
+                { src: 'IMG-20210311-WA0011.jpg', caption: 'Rack Layout & Drop Wiring Inspection' },
+                { src: 'IMG-20210311-WA0012.jpg', caption: 'High-Density Rack Wiring' },
+                { src: 'IMG-20210311-WA0013.jpg', caption: 'Patch Panel Termination Process' },
+                { src: 'IMG-20210311-WA0014.jpg', caption: 'Team Review of Drop Cables' }
+            ];
+            
+            let currentImageIdx3 = 0;
+            const imgEl3 = document.getElementById('slideshow-img-3');
+            const capEl3 = document.getElementById('slideshow-caption-3');
+            const countEl3 = document.getElementById('slideshow-counter-3');
+            
+            const updateSlideshow3 = () => {
+                if(!imgEl3) return;
+                imgEl3.style.opacity = 0; // Trigger fade out
+                setTimeout(() => {
+                    imgEl3.src = slideshowImages3[currentImageIdx3].src;
+                    capEl3.innerText = slideshowImages3[currentImageIdx3].caption;
+                    countEl3.innerText = `Image ${currentImageIdx3 + 1} of ${slideshowImages3.length}`;
+                    imgEl3.style.opacity = 1; // Trigger fade in
+                }, 300);
+            };
+
+            window.nextSlideShowImage3 = () => {
+                currentImageIdx3 = (currentImageIdx3 + 1) % slideshowImages3.length;
+                updateSlideshow3();
+            };
+
+            window.prevSlideShowImage3 = () => {
+                currentImageIdx3 = (currentImageIdx3 - 1 + slideshowImages3.length) % slideshowImages3.length;
+                updateSlideshow3();
+            };
+
+            // --- Slide 4 (2022) Slideshow Logic ---
+            let slide4Idx = 0;
+            const slide4Images = document.querySelectorAll('.slide4-image');
+            
+            window.nextSlide4Image = (dir) => {
+                if (slide4Images.length === 0) return;
+                
+                // Fade out current
+                slide4Images[slide4Idx].classList.remove('opacity-100', 'z-10');
+                slide4Images[slide4Idx].classList.add('opacity-0', 'z-0');
+                
+                // Calculate next index
+                slide4Idx = (slide4Idx + dir + slide4Images.length) % slide4Images.length;
+                
+                // Fade in next
+                slide4Images[slide4Idx].classList.remove('opacity-0', 'z-0');
+                slide4Images[slide4Idx].classList.add('opacity-100', 'z-10');
+            };
+
+            // Auto-advance every 4 seconds
+            setInterval(() => {
+                // Only auto-advance if we are actually looking at Slide 2
+                if(currentSlide === 1) { 
+                    window.nextSlideShowImage();
+                }
+                // Auto-advance if we are on Slide 3
+                if(currentSlide === 2) {
+                    window.nextSlideShowImage3();
+                }
+                // Auto-advance if we are on Slide 4
+                if(currentSlide === 3) {
+                    window.nextSlide4Image(1);
+                }
+            }, 4000);
+        });
+    </script>
+</body>
+</html>
